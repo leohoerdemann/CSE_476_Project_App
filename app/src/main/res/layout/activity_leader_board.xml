@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".LeaderBoardActivity">
+
+
+    <TextView
+        android:id="@+id/leaderBoardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/leader_board_title"
+        android:textSize="40sp" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/leaderBoardWeeklyToggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/leaderboard_weekly_switch_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leaderBoardEntries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:itemCount="40"
+        tools:listitem="@layout/recycler_view_item" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leaderBoardWeeklyEntries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/test_red"
+        android:visibility="gone" />
+</LinearLayout>

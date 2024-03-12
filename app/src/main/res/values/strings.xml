@@ -3,4 +3,7 @@
     <string name="leader_board_title">Top Students</string>
     <string name="leaderboard_weekly_switch_text">Weekly</string>
     <string name="leader_board_button_text">Leader Board</string>
+    <string name="start_studying">start studying</string>
+    <string name="see_leaderboard">go to leaderboard</string>
+    <string name="welcome">Welcome!</string>
 </resources>

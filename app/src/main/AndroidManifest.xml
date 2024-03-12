@@ -13,6 +13,12 @@
         android:theme="@style/Theme.CSE476ProjectApp"
         tools:targetApi="31">
         <activity
+            android:name=".StudyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartStudyActivity"
+            android:exported="false" />
+        <activity
             android:name=".LeaderBoardActivity"
             android:exported="false" />
         <activity

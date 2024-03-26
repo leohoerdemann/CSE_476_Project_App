@@ -5,12 +5,14 @@
     <string name="leader_board_button_text">Leader Board</string>
     <string name="start_studying">start studying</string>
     <string name="see_leaderboard">go to leaderboard</string>
+    <string name="not_signed_in">No user signed in</string>
     <string name="welcome">Welcome!</string>
-    <string name="sign_in_button">Sign In</string>
+    <string name="sign_in_button">Sign In/Out</string>
     <string name="client_id">978486740806-58nsjhbr6otnfc72io6a9t0e658v2jka.apps.googleusercontent.com</string>
     <string name="url_logout_url">msu.edu.cse476.hoerdema.cse476projectapp:/logout</string>
     <string name="url_auth_redirect">msu.edu.cse476.hoerdema.cse476projectapp:/oauth2redirect</string>
     <string name="url_token_exchange">https://www.googleapis.com/oauth2/v4/token</string>
     <string name="url_api_call">https://www.googleapis.com/drive/v2/files</string>
     <string name="icon_description">study timer logo with Spartan head and various study materials</string>
+    <string name="url_logout">https://accounts.google.com/o/oauth2/revoke?token=</string>
 </resources>

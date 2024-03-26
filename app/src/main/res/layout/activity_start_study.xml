@@ -8,25 +8,64 @@
     tools:context=".StartStudyActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
         android:text="@string/welcome" />
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:contentDescription="@string/icon_description"
+        android:src="@tools:sample/avatars"
+        app:srcCompat="@drawable/welcome_icon" />
+
+    <FrameLayout
+        android:id="@+id/buttonSpacer1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".25">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/startStudyingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="0"
         android:onClick="onStartStudying"
-        android:text="@string/start_studying" />
+        android:text="@string/start_studying"
+        app:strokeColor="@color/button_green" />
+
+    <FrameLayout
+        android:id="@+id/buttonSpacer2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".25">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/seeLeaderboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="0"
         android:onClick="onSeeLeaderboard"
         android:text="@string/see_leaderboard" />
+
+    <FrameLayout
+        android:id="@+id/bottomOfScreenSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5">
+
+    </FrameLayout>
+
 </LinearLayout>

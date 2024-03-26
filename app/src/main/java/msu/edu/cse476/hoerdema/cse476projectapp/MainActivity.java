@@ -1,34 +1,32 @@
 package msu.edu.cse476.hoerdema.cse476projectapp;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.widget.TextView;
 
-import com.auth0.android.jwt.JWT;
+import com.auth0.android.jwt.*;
 
 import net.openid.appauth.AppAuthConfiguration;
 import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationRequest;
+import net.openid.appauth.AuthorizationResponse;
 import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.ResponseTypeValues;
+import net.openid.appauth.TokenRequest;
 import net.openid.appauth.browser.BrowserAllowList;
 import net.openid.appauth.browser.VersionedBrowserMatcher;
-
-import org.json.JSONException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,31 +45,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         authorizationLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-//                            System.out.println("here");
-                        }
+                new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        handleAuthorizationResponse(result.getData());
                     }
                 });
 
 
-    }
-    public void restoreState() {
-        String jsonString = ((Application) getApplication())
-                .getSharedPreferences("AUTH_STATE_PREFERENCE", Context.MODE_PRIVATE)
-                .getString("AUTH_STATE", null);
-        if (jsonString != null && !TextUtils.isEmpty(jsonString)) {
-            try {
-                authState = AuthState.jsonDeserialize(jsonString);
-                if (!TextUtils.isEmpty(authState.getIdToken())) {
-                    jwt = new JWT(authState.getIdToken());
-                }
-            } catch (JSONException jsonException) {
 
-            }
-        }
     }
 
     public void persistState() {
@@ -103,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSignIn(View view){
-        attemptAuthorization();
+        if (jwt == null){
+            attemptAuthorization();
+        } else {
+            signOutWithoutRedirect();
+        }
+
+
+
     }
 
     public void attemptAuthorization() {
@@ -122,15 +110,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        assert digest != null;
         byte[] hash = digest.digest(codeVerifier.getBytes());
         String codeChallenge = Base64.encodeToString(hash, encoding);
 
 
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
                 authServiceConfig,
-                String.valueOf(R.string.client_id),
+                getString(R.string.client_id),
                 ResponseTypeValues.CODE,
-                Uri.parse(String.valueOf(R.string.url_auth_redirect)))
+                Uri.parse(getString(R.string.url_auth_redirect)))
                 .setCodeVerifier(codeVerifier, codeChallenge, "S256");
         builder.setScopes("profile",
                 "email",
@@ -144,6 +133,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void handleAuthorizationResponse(Intent intent) {
+        AuthorizationResponse authorizationResponse = AuthorizationResponse.fromIntent(intent);
+        AuthorizationException error = AuthorizationException.fromIntent(intent);
+        authState = new AuthState(authorizationResponse, error);
+
+        assert authorizationResponse != null;
+        TokenRequest tokenExchangeRequest = authorizationResponse.createTokenExchangeRequest();
+        authorizationService.performTokenRequest(tokenExchangeRequest, (response, exception) -> {
+            if (exception != null) {
+                authState = new AuthState();
+            } else {
+                if (response != null) {
+                    authState.update(response, null);
+                    assert response.idToken != null;
+                    jwt = new JWT(response.idToken);
+                    setContentView(R.layout.activity_main);
+                    TextView tv1 = findViewById(R.id.textView2);
+                    tv1.setText(jwt.getClaim("email").asString());
+                }
+            }
+            persistState();
+        });
+    }
 
 
 
@@ -151,4 +163,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         startActivity(intent);
     }
+
+    public void signOutWithoutRedirect() {
+        jwt = null;
+        authState = null;
+        setContentView(R.layout.activity_main);
+        TextView tv1 = findViewById(R.id.textView2);
+        tv1.setText(getString(R.string.not_signed_in));
+
+    }
 }
+
+
+

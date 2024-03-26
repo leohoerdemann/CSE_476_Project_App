@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!--
+        This button is just temporary for testing, feel free to remove and
+        call onStartLeaderBoard() somewhere else
+    -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,10 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--
-        This button is just temporary for testing, feel free to remove and
-        call onStartLeaderBoard() somewhere else
-    -->
     <Button
         android:id="@+id/leaderBoardButton"
         android:layout_width="wrap_content"
@@ -37,5 +37,11 @@
         android:layout_height="wrap_content"
         android:onClick="onSignIn"
         android:text="@string/sign_in_button" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/not_signed_in" />
 
 </LinearLayout>

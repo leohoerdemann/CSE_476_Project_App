@@ -164,6 +164,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onStartStudy(View view) {
+        Intent intent = new Intent(this, StartStudyActivity.class);
+        startActivity(intent);
+    }
+
     public void signOutWithoutRedirect() {
         jwt = null;
         authState = null;

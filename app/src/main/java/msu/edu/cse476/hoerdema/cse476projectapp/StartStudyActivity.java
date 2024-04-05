@@ -15,13 +15,14 @@ public class StartStudyActivity extends AppCompatActivity {
     }
 
     public void onStartStudying(View view) {
-        // code to check location may have to go here !
+        // code to check location may go here !
+        // or might be better idea to have that code in the study activity ?
+        // ^ if we want to repeatedly check while they are studying that they are still in a building
         Intent intent = new Intent(this, StudyActivity.class);
         startActivity(intent);
     }
 
     public void onSeeLeaderboard(View view) {
-        // code to check location may have to go here !
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         startActivity(intent);
     }

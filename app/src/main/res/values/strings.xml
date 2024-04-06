@@ -18,4 +18,5 @@
     <string name="studying_for">You\'ve been studying for:</string>
     <string name="dummy">dummy</string>
     <string name="stop_study">Stop Studying</string>
+    <string name="empty_stopwatch">00:00:00</string>
 </resources>

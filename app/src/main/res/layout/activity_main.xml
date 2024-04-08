@@ -11,37 +11,20 @@
         This button is just temporary for testing, feel free to remove and
         call onStartLeaderBoard() somewhere else
     -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/leaderBoardButton"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:onClick="onStartLeaderBoard"
-        android:text="@string/leader_board_button_text"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="122dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onStartStudy"
-        android:text="@string/start_studying" />
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/title_image_description"
+        app:srcCompat="@drawable/title_icon" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:onClick="onSignIn"
         android:text="@string/sign_in_button" />
 
@@ -49,6 +32,22 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/not_signed_in" />
+
+    <FrameLayout
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onStartStudy"
+        android:text="@string/home_button" />
 
 </LinearLayout>

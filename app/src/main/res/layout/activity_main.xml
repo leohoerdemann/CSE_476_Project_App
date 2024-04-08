@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/title_icon" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

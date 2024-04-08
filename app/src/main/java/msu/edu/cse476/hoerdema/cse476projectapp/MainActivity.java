@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.auth0.android.jwt.*;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setHomeVisibility();
 
         authorizationLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -54,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void setHomeVisibility(){
+        Button homeButton = (Button) findViewById(R.id.buttonHome);
+        if (jwt == null){
+            homeButton.setVisibility(View.GONE);
+        } else {
+            homeButton.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     public void persistState() {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences("AUTH_STATE_PREFERENCE", Context.MODE_PRIVATE);
@@ -89,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             signOutWithoutRedirect();
         }
+        setHomeVisibility();
 
 
 

@@ -27,6 +27,7 @@ public class StudyActivity extends AppCompatActivity {
 
     // used to format the time string displayed on screen
     String time = "";
+    private String username = "";
 
 
     @Override
@@ -49,7 +50,7 @@ public class StudyActivity extends AppCompatActivity {
         // need to store the time studied as well
         // i figure we can store it in seconds maybe?
         // to get seconds its just:
-
+        username = getIntent().getStringExtra("username");
         // currenttime = SystemClock.elapsedRealtime();
         // timestudying = currenttime - starttime;
         // int seconds = (int)timestudying / 1000;

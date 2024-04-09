@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private JWT jwt = null;
     private AuthorizationService authorizationService;
     private AuthorizationServiceConfiguration authServiceConfig;
+    private String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
                     jwt = new JWT(response.idToken);
                     setContentView(R.layout.activity_main);
                     TextView tv1 = findViewById(R.id.textView2);
-                    tv1.setText(jwt.getClaim("email").asString());
+                    username = jwt.getClaim("email").asString();
+                    tv1.setText(username);
                 }
             }
             persistState();
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartStudy(View view) {
         Intent intent = new Intent(this, StartStudyActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

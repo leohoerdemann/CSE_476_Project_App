@@ -19,12 +19,14 @@ public class StartStudyActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_study);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        username = getIntent().getStringExtra("username");
     }
 
     public void onStartStudying(View view) {
@@ -40,6 +42,7 @@ public class StartStudyActivity extends AppCompatActivity {
                         // Check if the location is within the required radius of any of the given coordinates.
                         if (isValidLocation(location)) {
                             Intent intent = new Intent(StartStudyActivity.this, StudyActivity.class);
+                            intent.putExtra("username", username);
                             startActivity(intent);
                         } else {
                             Toast.makeText(StartStudyActivity.this, "You are not in a valid location to start studying.", Toast.LENGTH_LONG).show();

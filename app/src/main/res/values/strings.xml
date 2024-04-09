@@ -24,4 +24,7 @@
     <string name="locations">To study you must be in either the STEM building, the Computer Center, or the Main Library.</string>
     <string name="one">1.</string>
     <string name="time">10</string>
+    <string name="start_studying_menu">Start Studying</string>
+    <string name="home_menu">Home</string>
+    <string name="geostudy">Geostudy</string>
 </resources>

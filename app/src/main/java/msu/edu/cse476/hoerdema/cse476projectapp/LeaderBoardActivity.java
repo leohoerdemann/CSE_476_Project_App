@@ -24,6 +24,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class LeaderBoardActivity extends AppCompatActivity {
@@ -41,22 +42,38 @@ public class LeaderBoardActivity extends AppCompatActivity {
         public void run() {
             // Perform your network operations here
             // Make sure to call the appropriate method for your operation, like GetAllRecords()
-            JSONArray users = NetworkUtil.GetAllRecords();
-            JSONArray usersWeekly = NetworkUtil.GetAllRecordsWeekly();
+            JSONObject users = NetworkUtil.GetAllRecords();
+            JSONObject usersWeekly = NetworkUtil.GetAllRecordsWeekly();
 
 
             try {
-                for (int i = 0; i < users.length(); i++) {
-                    JSONObject user = users.getJSONObject(i);
-                    String name = user.getString("User");
-                    int time = user.getInt("Time");
+//                for (int i = 0; i < users.length(); i++) {
+//                    JSONObject user = users.getJSONObject(i);
+//                    String name = user.getString("User");
+//                    int time = user.getInt("Time");
+//                    userList.add(new User(name, time));
+//                }
+
+
+                Iterator<String> keys = users.keys();
+                while (keys.hasNext()) {
+                    String name = keys.next();
+                    int time = users.getInt(name);
                     userList.add(new User(name, time));
                 }
 
-                for (int i = 0; i < usersWeekly.length(); i++) {
-                    JSONObject user = users.getJSONObject(i);
-                    String name = user.getString("User");
-                    int time = user.getInt("Time");
+//                for (int i = 0; i < usersWeekly.length(); i++) {
+//                    JSONObject user = users.getJSONObject(i);
+//                    String name = user.getString("User");
+//                    int time = user.getInt("Time");
+//                    userListWeekly.add(new User(name, time));
+//                }
+
+                // Iterate through the key-value pairs
+                Iterator<String> keysWeekly = usersWeekly.keys();
+                while (keysWeekly.hasNext()) {
+                    String name = keysWeekly.next();
+                    int time = usersWeekly.getInt(name);
                     userListWeekly.add(new User(name, time));
                 }
             } catch (Exception e) {

@@ -86,8 +86,8 @@ public class NetworkUtil {
     }
 
 
-    public static JSONArray GetAllRecords() {
-        String urlString = BASE_URL+"/getrecords";
+    public static JSONObject GetAllRecords() {
+        String urlString = BASE_URL+"/getalltime";
 
         HttpURLConnection connection = null;
         StringBuilder result = new StringBuilder();
@@ -108,7 +108,7 @@ public class NetworkUtil {
 
 
             String jsonString = result.toString();
-            return new JSONArray(jsonString);
+            return new JSONObject(jsonString);
 
 
 
@@ -130,7 +130,7 @@ public class NetworkUtil {
         return null;
     }
 
-    public static JSONArray GetAllRecordsWeekly() {
+    public static JSONObject GetAllRecordsWeekly() {
         String urlString = BASE_URL+"/getweek";
 
         HttpURLConnection connection = null;
@@ -152,7 +152,7 @@ public class NetworkUtil {
 
 
             String jsonString = result.toString();
-            return new JSONArray(jsonString);
+            return new JSONObject(jsonString);
 
 
 

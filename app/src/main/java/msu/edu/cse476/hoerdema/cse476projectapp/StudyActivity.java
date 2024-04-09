@@ -8,7 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
 
@@ -28,6 +32,9 @@ public class StudyActivity extends AppCompatActivity {
     // used to format the time string displayed on screen
     String time = "";
     private String username = "";
+    private ScaleGestureDetector scaleGestureDetector;
+    private LinearLayout rootLayout;
+    private float scaleFactor = 1.0f;
 
 
     @Override
@@ -43,6 +50,9 @@ public class StudyActivity extends AppCompatActivity {
         editor.apply();
 
         setTimeStudying();
+
+        rootLayout = findViewById(R.id.rootLayout);
+        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
     // called when the 'Stop Studying' button pressed
@@ -117,5 +127,23 @@ public class StudyActivity extends AppCompatActivity {
         editor.putString(STARTTIME, Long.toString(starttime));
         editor.apply();
         super.onPause();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        scaleGestureDetector.onTouchEvent(event);
+        return true;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = Math.max(0.1f, Math.min(scaleFactor, 5.0f)); // Limit scale range
+
+            rootLayout.setScaleX(scaleFactor);
+            rootLayout.setScaleY(scaleFactor);
+            return true;
+        }
     }
 }

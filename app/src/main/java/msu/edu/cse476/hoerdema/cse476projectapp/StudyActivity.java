@@ -83,6 +83,7 @@ public class StudyActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     // updates the onscreen timer with how long the student has been studying

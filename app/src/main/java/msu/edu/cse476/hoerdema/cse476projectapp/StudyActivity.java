@@ -38,6 +38,17 @@ public class StudyActivity extends AppCompatActivity {
     private LinearLayout rootLayout;
     private float scaleFactor = 1.0f;
 
+    public class NetworkTask implements Runnable {
+        @Override
+        public void run() {
+            username = getIntent().getStringExtra("username");
+
+            currenttime = SystemClock.elapsedRealtime();
+            timestudying = currenttime - starttime;
+            NetworkUtil.postUserData(username, (int)timestudying / 1000);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +73,13 @@ public class StudyActivity extends AppCompatActivity {
         // need to store the time studied as well
         // i figure we can store it in seconds maybe?
         // to get seconds its just:
-        username = getIntent().getStringExtra("username");
-        // currenttime = SystemClock.elapsedRealtime();
-        // timestudying = currenttime - starttime;
+
+
         // int seconds = (int)timestudying / 1000;
+
+
+        Thread thread = new Thread(new StudyActivity.NetworkTask());
+        thread.start();
 
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         startActivity(intent);

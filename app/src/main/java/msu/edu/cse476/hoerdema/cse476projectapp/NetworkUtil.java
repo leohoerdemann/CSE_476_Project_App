@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,9 +19,16 @@ public class NetworkUtil {
 
     private static String BASE_URL = "https://cse-476-project-server-7f7gwdmffa-uc.a.run.app";
 
-    public static void postUserData(String username, int time, String date) {
+    public static void postUserData(String username, int time) {
+
+        String urlString = "";
+        try{
+            urlString = String.format(BASE_URL+"/insert/%s/%d", URLEncoder.encode(username.substring(0, username.indexOf('@')), "UTF-8"), time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Construct the URL with the provided parameters
-        String urlString = String.format(BASE_URL+"/insert/%s/%d/%s", username, time, date);
+
 
         HttpURLConnection connection = null;
         try {
@@ -41,7 +49,7 @@ public class NetworkUtil {
             }
             reader.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             // Handle IO exceptions
         } finally {

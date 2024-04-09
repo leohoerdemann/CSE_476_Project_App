@@ -22,4 +22,6 @@
     <string name="title_image_description">Logo with the title of the app \'GeoStudy\'</string>
     <string name="home_button">Home</string>
     <string name="locations">To study you must be in either the STEM building, the Computer Center, or the Main Library.</string>
+    <string name="one">1.</string>
+    <string name="time">10</string>
 </resources>

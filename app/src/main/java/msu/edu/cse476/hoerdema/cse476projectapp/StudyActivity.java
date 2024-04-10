@@ -56,11 +56,14 @@ public class StudyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_study);
         settings = getSharedPreferences(
                 "my.app.packagename_preferences", Context.MODE_PRIVATE);
-
-        starttime = SystemClock.elapsedRealtime();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(STARTTIME, Long.toString(starttime));
-        editor.apply();
+        if(savedInstanceState != null){
+            starttime = savedInstanceState.getLong(STARTTIME);
+        } else {
+            starttime = SystemClock.elapsedRealtime();
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(STARTTIME, Long.toString(starttime));
+            editor.apply();
+        }
 
         setTimeStudying();
 
@@ -185,5 +188,16 @@ public class StudyActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putLong(STARTTIME, starttime);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        starttime = savedInstanceState.getLong(STARTTIME);
     }
 }
